@@ -13,6 +13,7 @@ public class Snake {
     private SnakesProto.PlayerType playerType;
     public SnakesProto.GameState.Snake.SnakeState snakeState = SnakesProto.GameState.Snake.SnakeState.ALIVE;
     public Direction direction;
+    public Direction directionPast;
     public boolean ImAlive = true;
     public final String ip_address; // IPv4 или IPv6 адрес игрока в виде строки. Отсутствует в описании игрока-отправителя сообщения
 
@@ -56,7 +57,7 @@ public class Snake {
         snakePoints.add(point);
     }
     public void changeDirection(Direction direction){
-        if (this.direction.revers()!=direction)
+        if (this.directionPast.revers()!=direction)
                 this.direction = direction;
     }
     public void live(){
@@ -67,6 +68,7 @@ public class Snake {
                 snakePoints.get(i).coord.y=snakePoints.get(i-1).coord.y;
             }
             snakePoints.get(0).setdXY(direction);
+            directionPast = direction;
             if(size<snakePoints.size()){
                 addSize();
             }
